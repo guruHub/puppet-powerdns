@@ -25,4 +25,9 @@ class powerdns::package(
     source   => $package_source,
     provider => $package_provider
   }
+
+  file { '/etc/powerdns/pdns.d/pdns.simplebind':
+    ensure  => absent,
+    require => Package[$package]
+  }
 }
