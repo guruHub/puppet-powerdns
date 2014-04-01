@@ -63,7 +63,7 @@ class powerdns::mysql(
   
   exec { 'load pdns mysql schema': 
     command => "/usr/bin/mysql -u${user} -p${password} -h${host} ${dbname} < /tmp/pdns_mysql_schema.sql",
-    onlyif  => "/usr/bin/test $(mysql -u${user} -p${password} -h${host} ${dbname} -e 'show tables' | wc -l ) -gt 0 && echo 1 || echo 0"
+    onlyif  => "/usr/bin/test $(mysql -u${user} -p${password} -h${host} ${dbname} -e 'show tables' | wc -l ) -gt 0 "
   }
 
 }
