@@ -49,4 +49,21 @@ class powerdns::mysql(
     notify  => Service['pdns'],
     require => Package[$powerdns::params::package],
   }
+  
+  $mysql_schema = $dnssec ? {
+    /(yes|true)/ => 'puppet:///modules/powerdns/mysql_schema.dnssec.sql',
+    default      => 'puppet:///modules/powerdns/mysql_schema.sql'
+  }
+
+  file { '/tmp/pdns_mysql_schema.sql': 
+    ensure => $ensure,
+    source => $mysql_schema,
+    notify => Exec['load pdns mysql schema'],
+  }
+  
+  exec { 'load pdns mysql schema': 
+    command => "msyql -u${user} -p${password} -h${host} ${dbname} < /tmp/pdns_mysql_schema.sql",
+    onlyif  => "test $(mysql -u${user} -p${password} -h${host} ${dbname} -e 'show tables' | wc -l ) -gt 0 && echo 1 || echo 0"
+  }
+
 }
