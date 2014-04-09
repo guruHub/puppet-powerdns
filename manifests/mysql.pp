@@ -44,7 +44,6 @@ class powerdns::mysql(
     owner   => root,
     group   => root,
     mode    => '0600',
-    backup  => '.bak',
     content => template('powerdns/pdns.mysql.local.erb'),
     notify  => Service['pdns'],
     require => [ Package[$powerdns::params::package], Package[$package] ]
