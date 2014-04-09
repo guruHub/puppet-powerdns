@@ -47,7 +47,7 @@ class powerdns::mysql(
     backup  => '.bak',
     content => template('powerdns/pdns.mysql.local.erb'),
     notify  => Service['pdns'],
-    require => Package[$powerdns::params::package],
+    require => [ Package[$powerdns::params::package], Package[$package] ]
   }
   
   $mysql_schema = $dnssec ? {
