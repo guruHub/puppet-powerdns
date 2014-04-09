@@ -33,7 +33,7 @@ class powerdns::params {
 
   $mysql_cfg_path = $::operatingsystem ? {
     /(?i:centos|redhat|amazon)/ => '/etc/pdns/pdns.conf',
-    default              => '/etc/powerdns/pdns.d/pdns.local.mysql'
+    default              => '/etc/powerdns/pdns.d/pdns.local.gmysql'
   }
 
 }
