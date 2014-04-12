@@ -1,4 +1,4 @@
-create table domains (
+CREATE IF NOT EXIST table domains (
  id              INT auto_increment,
  name            VARCHAR(255) NOT NULL,
  master          VARCHAR(128) DEFAULT NULL,
@@ -11,7 +11,7 @@ create table domains (
 
 CREATE UNIQUE INDEX name_index ON domains(name);
 
-CREATE TABLE records (
+CREATE IF NOT EXIST TABLE records (
   id              INT auto_increment,
   domain_id       INT DEFAULT NULL,
   name            VARCHAR(255) DEFAULT NULL,
@@ -27,7 +27,7 @@ CREATE INDEX rec_name_index ON records(name);
 CREATE INDEX nametype_index ON records(name,type);
 CREATE INDEX domain_id ON records(domain_id);
 
-create table supermasters (
+CREATE IF NOT EXIST supermasters (
   ip         VARCHAR(25) NOT NULL,
   nameserver VARCHAR(255) NOT NULL,
   account    VARCHAR(40) DEFAULT NULL
